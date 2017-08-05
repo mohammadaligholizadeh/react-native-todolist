@@ -11,14 +11,25 @@ import Svg,{
     Path
 } from 'react-native-svg';
 export default class todolistapp extends Component {
+
+    constructor(props){
+        super(props);
+    }
+
     render() {
+        const { navigate } = this.props.navigation;
+
+            setTimeout(function () {
+                navigate('WalkthroughScreen')
+            },2000);
+
         return (
 
             <View style={styles.linearGradient} >
                 <LinearGradient colors={['#5ed4f9', '#0874ed']} style={styles.container} >
                     <Svg
-                        height="234"
-                        width="234"
+                        height="160"
+                        width="160"
                     >
                         <Image
                             width="100%"
@@ -48,18 +59,13 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: '#0874ed',
     },
     linearGradient: {
         flex: 1,
         paddingLeft: 0,
         paddingRight: 0,
-        // borderRadius: 5,
         flexDirection: 'column',
         height: 500,
         padding: 0
-        // backgroundColor:'#4c669f',
     },
 });
-
-AppRegistry.registerComponent('todolistapp', () => todolistapp);
