@@ -21,7 +21,7 @@ export default class todolistapp extends Component {
 
             setTimeout(function () {
                 navigate('WalkthroughScreen')
-            },2000);
+            },500);
 
         return (
 
