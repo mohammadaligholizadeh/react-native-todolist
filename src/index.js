@@ -1,6 +1,8 @@
 import { StackNavigator } from 'react-navigation';
 import todolistapp from "./splash";
 import walkthrough from "./walkthrough";
+import TodoApp from "./todolist";
+
 
 const Routes = {
     InitialScreen: {
@@ -8,6 +10,9 @@ const Routes = {
     },
     WalkthroughScreen: {
         screen: walkthrough
+    },
+    TodolistScreen: {
+        screen: TodoApp
     }
 };
 

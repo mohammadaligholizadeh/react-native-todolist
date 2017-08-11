@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 import Swiper from 'react-native-swiper';
-import Button from 'apsl-react-native-button'
+import Button from 'apsl-react-native-button';
 import Svg,{
     G,
     Circle,
@@ -22,6 +22,12 @@ export default class walkthrough extends Component {
     }
 
     render(){
+
+        const { navigate } = this.props.navigation;
+
+        // const todolist = () => {
+        //     navigate('TodolistScreen')
+        // }
 
         return (
             <View style={styles.container}>
@@ -60,6 +66,7 @@ export default class walkthrough extends Component {
                             </Text>
                             <View style={styles.buttonmain}>
                                 <Button style={styles.buttonStyle1}
+                                        onPress={() => navigate('TodolistScreen')}
                                         textStyle={styles.textStyle8}>
                                     <View style={styles.customViewStyle}>
                                         <Text style={styles.s1b1}>

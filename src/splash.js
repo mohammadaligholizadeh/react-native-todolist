@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import {
     AppRegistry,
     StyleSheet,
+    Image,
     View
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Svg,{
-    Image,
     G,
     Path
 } from 'react-native-svg';
@@ -27,16 +27,10 @@ export default class todolistapp extends Component {
 
             <View style={styles.linearGradient} >
                 <LinearGradient colors={['#5ed4f9', '#0874ed']} style={styles.container} >
-                    <Svg
-                        height="160"
-                        width="160"
-                    >
                         <Image
-                            width="100%"
-                            height="100%"
-                            href={require('../img/focusy-icon.png')}
+                            style={{width:160,height:160}}
+                            source={require('../img/focusy-icon.png')}
                         />
-                    </Svg>
                     <Svg
                         height="59"
                         width="158"
