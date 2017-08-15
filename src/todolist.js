@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View } from 'react-native';
 import Button from 'apsl-react-native-button';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Appview from './app';
 
 export default class TodoApp extends Component {
     render() {
@@ -24,7 +25,7 @@ export default class TodoApp extends Component {
                     </Icon.Button>
                 </View>
                 <View style={styles.listview}>
-                    <Text>تست</Text>
+                    <App />
                 </View>
             </View>
         );
