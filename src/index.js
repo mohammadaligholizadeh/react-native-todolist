@@ -1,7 +1,8 @@
 import { StackNavigator } from 'react-navigation';
 import todolistapp from "./splash";
 import walkthrough from "./walkthrough";
-import Todoapp from "./app";
+import Todoapp from "./todolist";
+import addtodo from "./addtodo";
 
 
 const Routes = {
@@ -13,6 +14,9 @@ const Routes = {
     },
     TodolistScreen: {
         screen: Todoapp
+    },
+    AddtodoScreen: {
+        screen: addtodo
     }
 };
 
