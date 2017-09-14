@@ -2,7 +2,11 @@ import { StackNavigator } from 'react-navigation';
 import todolistapp from "./splash";
 import walkthrough from "./walkthrough";
 import Todoapp from "./todolist";
-import addtodo from "./addtodo";
+// import addtodo from "./addtodo";
+import App from "./app";
+// import AddContainer from './containers/AddContainer';
+import AddContainer from './containers/AddContainer';
+// import PageTwo from './listview';
 
 
 const Routes = {
@@ -13,10 +17,10 @@ const Routes = {
         screen: walkthrough
     },
     TodolistScreen: {
-        screen: Todoapp
+        screen: App
     },
     AddtodoScreen: {
-        screen: addtodo
+        screen: AddContainer
     }
 };
 

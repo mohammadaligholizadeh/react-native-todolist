@@ -15,6 +15,11 @@ import Svg,{
 } from 'react-native-svg';
 
 export default class TodoApp extends Component {
+
+    constructor(props){
+        super(props);
+    }
+
     render() {
 
         const { navigate } = this.props.navigation;
@@ -68,6 +73,8 @@ export default class TodoApp extends Component {
                 </View>
                 </View>
                 <View style={styles.listview}>
+                    {/*<Text>{(this.props.navigation.state.params.data) ? this.props.navigation.state.params.data : ""}</Text>*/}
+                    {/*{alert(this.props.navigation.state.params.data)}*/}
                     {/*<View style={styles.todolist} >*/}
                         {/**/}
                     {/*</View>*/}

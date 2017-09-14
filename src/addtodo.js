@@ -13,11 +13,46 @@ import Svg,{
     Rect,
     Path
 } from 'react-native-svg';
+import PageTwo from './listview';
 
 export default class addtodo extends Component {
+
+    constructor(props){
+        super(props);
+        this.state= {
+            data: [],
+            lastid: 0,
+            task: ''
+        }
+    }
+
+    todo = (text) => {
+        this.setState({
+            task: text
+        });
+    }
+
     render() {
 
         const { navigate } = this.props.navigation;
+
+        const addtodo = (task,lastid) => {
+
+            const todo = {title:task,id:lastid+1}
+
+            this.state.data.push(todo);
+
+            this.setState({data: this.state.data.map(item => {return item.title})});
+
+            // alert(this.state.data.map(item => {return item.title}))
+
+            // alert(JSON.stringify(this.state.data));
+
+            // navigate('PagetwoScreen');
+
+        }
+
+        // var textComponents = form.map((title)=> <Text>title</Text>)
 
         return (
             <View style={styles.container}>
@@ -52,12 +87,13 @@ export default class addtodo extends Component {
                                 placeholder="What you're gonna do?"
                                 placeholderTextColor="#ffffff"
                                 underlineColorAndroid="rgba(255,255,255,0.3)"
+                                onChangeText={this.todo}
                                 style={styles.input}
                             />
                         </View>
                         <View style={styles.pressview}>
                             <Button style={styles.buttonStyle1}
-                                    onPress={() => console.log('ok')}
+                                    onPress={() => addtodo(this.state.task,this.state.lastid)}
                                     textStyle={styles.textStyle8}>
                                 <View style={styles.customViewStyle}>
                                     <Text style={styles.s1b1}>
@@ -68,6 +104,7 @@ export default class addtodo extends Component {
                         </View>
                     </View>
                 </View>
+                <PageTwo list = {this.state.data} />
             </View>
         );
     }
