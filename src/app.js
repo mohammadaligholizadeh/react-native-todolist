@@ -1,19 +1,21 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import App from './components/App';
-import reducer from './reducers';
+import todos from './reducers/reducer';
+import ListContainer from './containers/ListContainer';
 
-export default class Todoapp extends Component {
+const store = createStore(todos);
 
-    render(){
-        const store = createStore(reducer);
+class App extends Component {
 
-        return(
+    render() {
+
+        return (
             <Provider store={store}>
-                <App />
+                <ListContainer/>
             </Provider>
         );
     }
-
 }
+
+export default App;
