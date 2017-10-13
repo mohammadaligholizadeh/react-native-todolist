@@ -5,17 +5,17 @@ import {
     ListView,
     Text,
     TouchableOpacity,
+    ScrollView,
     View
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 import Svg,{
     G,
     Circle,
     Rect,
     Path
 } from 'react-native-svg';
-import Addtodo from '../components/addtask';
-import { NavigationActions } from 'react-navigation'
+import { Actions } from 'react-native-router-flux';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -25,43 +25,34 @@ export default class TodoApp extends Component {
         super(props);
         this.state = {
             dataSource: ds.cloneWithRows(props.todolist)
-        };
-        // this.addNewTodo = this.addNewTodo.bind(this);
-    }
-
-    // addNewTodo() {
-    //     this.props.navigator.push({
-    //         component: Addtodo
-    //     });
-    // }
-
-    updateDataSource(TodoApp) {
-        this.setState({
-            dataSource: ds.cloneWithRows(TodoApp)
-        });
-    }
-
-    componentWillReceiveProps(newProps) {
-        this.updateDataSource(newProps.todolist);
+        }
     }
 
 
     render() {
 
-        // const { navigate } = this.props.navigation;
-        // const navigateAction = NavigationActions.navigate({
-        //     routeName: 'AddtodoScreen'
-        // })
+        const {todolist} = this.props;
+        const {text,time} = todolist;
+        const renderRow = () => {
+            return(<View>
+                <View>
+                    <Text>{text}</Text>
+                    <Text>{time.toGMTString()}</Text>
+                </View>
+            </View>)
+        }
+
+        const { navigate } = this.props.navigation;
 
         return (
             <View style={styles.container}>
                 <View style={styles.header} >
-                    <View style={{ height: 5 }} />
+                    {/*<View style={{ paddingTop: 5 }} />*/}
                     <View style={styles.titleview}>
                         <View style={styles.back} >
                             <Svg width="21" height="18" viewBox="0 0 21 18">
                                 <G fill="none" fillRule="evenodd" stroke="#FFF" strokeLinecap="round" strokeLinejoin="round">
-                                    <Path d="M19.669 9.052H1.047M10.028 1.02L1.021 9.05l9.007 8.006" onPress={()=>navigate('WalkthroughScreen')} />
+                                    <Path d="M19.669 9.052H1.047M10.028 1.02L1.021 9.05l9.007 8.006" onPress={() => navigate('WalkthroughScreen')} />
                                 </G>
                             </Svg>
                         </View>
@@ -72,7 +63,6 @@ export default class TodoApp extends Component {
                         </View>
 
                     </View>
-                    <View style={{ height: 5 }} />
                     <View
                         style={{
                             borderBottomColor: 'rgba(255,255,255,0.3)',
@@ -83,35 +73,47 @@ export default class TodoApp extends Component {
 
                     <View style={styles.buttonview}>
 
-                        <TouchableOpacity onPress={()=>this.props.onAdd('ok')} style={styles.button} >
-                            <View style={styles.buttontext}>
-                                <View style={{ width: 10 }} />
-                                <Svg width="20" height="20" viewBox="0 0 20 20">
-                                    <G fill="none" fillRule="evenodd" stroke="#FFF" x="1" y="1" >
-                                        <Circle cx="9" cy="9" r="9" />
-                                        <Path strokeLinecap="round" strokeLinejoin="round" d="M9.05 4.982v8.039-8.039zM5.101 8.886h7.967"/>
-                                    </G>
-                                </Svg>
-                                <View style={{ width: 10 }} />
-                                <Text style={styles.buttoncontent}>
-                                    Add your task
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
+                            <TouchableOpacity onPress={() => { Actions.add(); }} style={styles.button} >
+                                <View style={styles.buttontext}>
+                                    <View style={{ paddingLeft: 10 }} >
+                                        <Svg width="20" height="20" viewBox="0 0 20 20">
+                                            <G fill="none" fillRule="evenodd" stroke="#FFF" x="1" y="1" >
+                                                <Circle cx="9" cy="9" r="9" />
+                                                <Path strokeLinecap="round" strokeLinejoin="round" d="M9.05 4.982v8.039-8.039zM5.101 8.886h7.967"/>
+                                            </G>
+                                        </Svg>
+                                    </View>
+                                    <View style={{ paddingLeft: 10 }} >
+                                        <Text style={styles.buttoncontent}>
+                                            Add your task
+                                        </Text>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
 
-                    </View>
                 </View>
+                <View style={{ height: 10 }} />
                 <View style={styles.listview}>
-                    <ListView
-                        dataSource={this.state.dataSource}
-                        renderRow={(rowData) => <Text>{rowData}</Text>}
-                        enableEmptySections={true}
-                        automaticallyAdjustContentInsets={false}
-                    />
-                        {/*{this.props.todolist}*/}
-                    {/*<View style={styles.todolist} >*/}
-                    {/**/}
-                    {/*</View>*/}
+
+                    <ScrollView>
+                        {Object.keys(todolist).map((itemId) => {
+                            return (
+                                <View>
+                                    <View style={styles.todoItem}>
+                                        <TouchableOpacity style={styles.todobtn}>
+                                            <View key={itemId} style={styles.todoItemDetails}>
+                                                <Text style={styles.todoItemTitle}>{todolist[itemId].text}</Text>
+                                                {/*<Text>{todolist[itemId].time}</Text>*/}
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={{height:5}} />
+                                </View>
+                            );
+                        })}
+                    </ScrollView>
+
                 </View>
             </View>
         );
@@ -126,56 +128,50 @@ const styles = StyleSheet.create({
         backgroundColor: '#024a8b',
     },
     header: {
-        flex: 0.3,
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        // alignItems: 'center',
     },
     titleview: {
-        height: 40,
+        flex:1,
         flexDirection: 'row',
-        width: 390,
         justifyContent: 'center',
         alignItems: 'center',
     },
     back: {
+        flex:0.2,
         justifyContent: 'center',
     },
     title: {
-        flex: 3,
+        flex: 4,
     },
     border: {
-        // flexDirection: 'row',
         borderBottomColor: 'white',
         borderBottomWidth: 1,
     },
     buttonview: {
-        height: 50,
+        flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
     },
     listview: {
-        flex: 1.5,
+        flex: 5,
         flexDirection: 'column',
         justifyContent: 'center',
-        // alignItems: 'center',
-        // backgroundColor: 'white',
-        // height:550,
     },
     todolist: {
         flex: 1,
-        // flexDirection: 'column',
         backgroundColor: 'white',
     },
     white: {
         color: 'white',
         textAlign: 'center',
+        justifyContent: 'center',
         fontSize: 18,
     },
     button: {
         width:390,
-        // height: 50,
         backgroundColor: 'rgba(216,216,216,0.3)',
         borderRadius: 5,
     },
@@ -190,5 +186,24 @@ const styles = StyleSheet.create({
     },
     buttonsvg: {
         flex:0.2,
+    },
+    todoItem: {
+        alignItems: 'stretch',
+        flexDirection: 'row',
+        opacity: 1,
+    },
+    todoItemDetails: {
+        padding: 15,
+        paddingRight:30,
+    },
+    todoItemTitle: {
+        color: '#000000',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    todobtn: {
+        width:390,
+        backgroundColor: 'rgb(255,255,255)',
+        borderRadius: 5,
     },
 });

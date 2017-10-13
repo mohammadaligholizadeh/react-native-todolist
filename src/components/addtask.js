@@ -13,6 +13,7 @@ import Svg,{
     Rect,
     Path
 } from 'react-native-svg';
+import { Actions } from 'react-native-router-flux';
 
 export default class Addtodo extends Component {
 
@@ -21,8 +22,6 @@ export default class Addtodo extends Component {
         this.state = {
             text: ''
         };
-        this.save = this.save.bind(this);
-        this.reset = this.reset.bind(this);
         this.handleText = this.handleText.bind(this);
     }
 
@@ -30,24 +29,21 @@ export default class Addtodo extends Component {
         this.setState({text});
     }
 
-    reset() {
-        this.setState({text: ''});
-    }
-
-    save() {
-        this.props.onAdd(this.state.text);
-    }
-
     render() {
+
+        const savetodo = (text) => {
+            this.props.onAdd(text);
+            Actions.list();
+        }
+
         return (
             <View style={styles.container}>
                 <View style={styles.header} >
-                    <View style={{ height: 5 }} />
                     <View style={styles.titleview}>
                         <View style={styles.back} >
                             <Svg width="21" height="18" viewBox="0 0 21 18">
                                 <G fill="none" fillRule="evenodd" stroke="#FFF" strokeLinecap="round" strokeLinejoin="round">
-                                    <Path d="M19.669 9.052H1.047M10.028 1.02L1.021 9.05l9.007 8.006" onPress={()=>navigate('TodolistScreen')} />
+                                    <Path d="M19.669 9.052H1.047M10.028 1.02L1.021 9.05l9.007 8.006" onPress={() => { Actions.list(); }} />
                                 </G>
                             </Svg>
                         </View>
@@ -58,7 +54,6 @@ export default class Addtodo extends Component {
                         </View>
 
                     </View>
-                    <View style={{ height: 5 }} />
                     <View
                         style={{
                             borderBottomColor: 'rgba(255,255,255,0.3)',
@@ -72,14 +67,13 @@ export default class Addtodo extends Component {
                                 placeholder="What you're gonna do?"
                                 placeholderTextColor="#ffffff"
                                 underlineColorAndroid="rgba(255,255,255,0.3)"
-                                // onChangeText={ this.handleText }
-                                // onSubmitEditing={ this.reset }
+                                onChangeText={ this.handleText }
                                 style={styles.input}
                             />
                         </View>
                         <View style={styles.pressview}>
                             <Button style={styles.buttonStyle1}
-                                    onPress={()=>console.log("ok")}
+                                    onPress={() => savetodo(this.state.text)}
                                     textStyle={styles.textStyle8}>
                                 <View style={styles.customViewStyle}>
                                     <Text style={styles.s1b1}>
@@ -103,26 +97,24 @@ const styles = StyleSheet.create({
         backgroundColor: '#024a8b',
     },
     header: {
-        flex: 0.3,
+        flex:1,
         flexDirection: 'column',
         justifyContent: 'center',
-        // alignItems: 'center',
     },
     titleview: {
-        height: 40,
+        flex: 0.16,
         flexDirection: 'row',
-        width: 390,
         justifyContent: 'center',
         alignItems: 'center',
     },
     back: {
+        flex:0.2,
         justifyContent: 'center',
     },
     title: {
-        flex: 3,
+        flex: 4,
     },
     border: {
-        // flexDirection: 'row',
         borderBottomColor: 'white',
         borderBottomWidth: 1,
     },
@@ -137,8 +129,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: 'white',
-        // height:550,
     },
     input: {
         width: 370,
@@ -147,7 +137,6 @@ const styles = StyleSheet.create({
     },
     todolist: {
         flex: 1,
-        // flexDirection: 'column',
         backgroundColor: 'white',
     },
     white: {
@@ -172,7 +161,6 @@ const styles = StyleSheet.create({
         borderColor: '#27cc34',
         justifyContent: 'center',
         alignItems: 'center',
-        // borderWidth: 2,
         borderRadius: 22,
     },
     s1b1: {
