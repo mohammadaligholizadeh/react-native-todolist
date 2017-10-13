@@ -34,6 +34,7 @@ export default class walkthrough extends Component {
                 <Swiper paginationStyle={styles.pagination}
                         dotColor="#e1e1d0"
                         activeDotColor="white"
+                        loop={false}
                 >
                     <View style={styles.slide1}>
                         <View style={styles.s1p1} >
@@ -102,7 +103,7 @@ export default class walkthrough extends Component {
                             </Text>
                             <View style={styles.buttonmain}>
                                 <Button style={styles.buttonStyle2}
-                                    onPress={() => console.log('world!')}>
+                                    onPress={() => navigate('TodolistScreen')}>
                                     <View style={styles.customViewStyle}>
                                         <Text style={styles.s1b1}>
                                             continue
@@ -139,7 +140,7 @@ export default class walkthrough extends Component {
                             <View style={styles.buttonmain} >
                                 <Button style={styles.buttonStyle3}
                                         textStyle={styles.textStyle8}
-                                        onPress={() => console.log('world!')}
+                                        onPress={() => navigate('TodolistScreen')}
                                 >
                                     <View style={styles.customViewStyle}>
                                         <Text style={styles.s3b1}>

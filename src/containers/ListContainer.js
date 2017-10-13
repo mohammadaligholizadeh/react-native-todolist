@@ -6,17 +6,13 @@ import { connect } from 'react-redux';
 import { addTodo } from '../actions';
 import TodoApp from '../components/addtodo';
 
-const mapStateToProps = state => ({
-    todolist: state
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    onAdd: (text) => {
-        dispatch(addTodo(text));
+const mapStateToProps = state => {
+    return {
+        todolist: state.todo.todoList
     }
-})
+};
 
-const ListContainer = connect(mapStateToProps,mapDispatchToProps)(TodoApp);
+const ListContainer = connect(mapStateToProps)(TodoApp);
 export default ListContainer;
 
 

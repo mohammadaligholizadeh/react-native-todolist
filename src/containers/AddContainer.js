@@ -1,13 +1,12 @@
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addTodo } from '../actions/index';
+import { addTodo } from '../actions';
 import Addtodo from '../components/addtask';
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onAdd: (text) => {
-            dispatch(addTodo(text))
-        }
+const mapDispatchToProps = (dispatch) => ({
+    onAdd: (text) => {
+        dispatch(addTodo(text));
     }
-}
+})
 
-export default connect(()=>{}, mapDispatchToProps)(Addtodo);
+export default connect(undefined, mapDispatchToProps)(Addtodo);
